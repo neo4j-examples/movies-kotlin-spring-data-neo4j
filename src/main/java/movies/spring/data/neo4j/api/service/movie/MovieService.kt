@@ -1,45 +1,51 @@
 package movies.spring.data.neo4j.api.service.movie
 
+import movies.spring.data.neo4j.api.service.movie.dto.GraphDTO
+import movies.spring.data.neo4j.api.service.movie.dto.MovieDTO
 import movies.spring.data.neo4j.domain.model.persistent.entities.Movie
+import movies.spring.data.neo4j.domain.model.persistent.entities.Person
+import movies.spring.data.neo4j.domain.model.persistent.entities.Role
 import movies.spring.data.neo4j.repositories.MovieRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
-class MovieService {
+class MovieService constructor(movieRepository: MovieRepository){
 
-    @Autowired internal var movieRepository: MovieRepository? = null
+    val movieRepository = movieRepository
 
     @Transactional(readOnly = true)
     fun graph(limit: Int): GraphDTO {
-        val result = movieRepository!!.graph(limit)
-        return toD3Format(result)
+        return GraphDTO.mapFromEntity(movieRepository.graph(limit))
     }
 
-    private fun toD3Format(movies: Collection<Movie>): GraphDTO {
-        val nodes = ArrayList<NodeDTO>()
-        val links = ArrayList<LinkDTO>()
-        var i = 0
-        val result = movies.iterator()
-        while (result.hasNext()) {
-            val movie = result.next()
-            nodes.add(NodeDTO(title = movie.title!!, label = "movie"))
-            val target = i
-            i++
-            for (role in movie.roles) {
-                val actor = NodeDTO(title = role.person.name!!, label = "actor")
-                var source = nodes.indexOf(actor)
-                if (source == -1) {
-                    nodes.add(actor)
-                    source = i++
-                }
-                links.add(LinkDTO(source, target))
-            }
-        }
-        return GraphDTO(nodes, links)
+    @Transactional(readOnly = true)
+    fun findByTitle(title: String): MovieDTO {
+        return MovieDTO.fromEntity(movieRepository.findByTitle(title))
     }
+
+    @Transactional(readOnly = true)
+    fun findByTitleContaining(term: String): Collection<MovieDTO> {
+        return MovieDTO.mapFromEntities(movieRepository.findByTitleContaining(term))
+    }
+
+    @Transactional
+    fun save(dto: MovieDTO)
+    {
+        val movie = Movie(dto.title, dto.releasedYear, dto.tagLine)
+        dto.roles.forEach {
+            val person = Person(it.person.name)
+            person.born = it.person.born
+
+            val role = Role(movie, person)
+            it.roles.forEach { roleName ->
+                role.addRoleName(roleName)
+            }
+            movie.addRole(role)
+        }
+        movieRepository.save(movie)
+    }
+
 
 
 }

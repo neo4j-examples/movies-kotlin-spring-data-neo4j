@@ -1,5 +1,7 @@
 package movies.spring.data.neo4j.api.service.authorization;
 
+import movies.spring.data.neo4j.api.service.authorization.dto.AuthorizationDTO
+import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
 import movies.spring.data.neo4j.exception.UnauthorizedException
 import movies.spring.data.neo4j.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired

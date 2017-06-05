@@ -29,6 +29,8 @@ class MovieRepositoryTest {
 
     @Before
     fun setUp() {
+        movieRepository.deleteAll()
+
         val matrix = Movie("The Matrix", 1999)
 
         movieRepository.save(matrix)
@@ -45,10 +47,6 @@ class MovieRepositoryTest {
         movieRepository.save(matrix)
     }
 
-    @After
-    fun tearDown() {
-        session.purgeDatabase()
-    }
 
     /**
      * Test of findByTitle method, of class MovieRepository.
@@ -59,7 +57,7 @@ class MovieRepositoryTest {
         val title = "The Matrix"
         val result = movieRepository.findByTitle(title)
         assertNotNull(result)
-        assertEquals(1999L, result.released)
+        assertEquals(1999L, result.releasedYear)
     }
 
     /**

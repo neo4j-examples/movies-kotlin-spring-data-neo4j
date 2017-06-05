@@ -3,8 +3,8 @@ package movies.spring.data.neo4j.api.endpoints
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jayway.restassured.RestAssured
 import movies.spring.data.neo4j.ApplicationAssembly
-import movies.spring.data.neo4j.api.service.authorization.AuthorizationDTO
-import movies.spring.data.neo4j.api.service.authorization.CredentialsDTO
+import movies.spring.data.neo4j.api.service.authorization.dto.AuthorizationDTO
+import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
 import org.junit.Assert
 import org.junit.Before
 import org.junit.runner.RunWith

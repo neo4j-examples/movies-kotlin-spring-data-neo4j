@@ -4,34 +4,30 @@ import java.util.ArrayList
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
-import org.neo4j.ogm.annotation.GraphId
-import org.neo4j.ogm.annotation.NodeEntity
-import org.neo4j.ogm.annotation.Relationship
+import org.neo4j.ogm.annotation.*
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @NodeEntity
-class Movie {
+class Movie constructor(title: String, releasedYear: Long, tagLine: String?) {
 
     @GraphId
     var id: Long? = null
 
-    var title: String? = null
+    @Index(unique=true, primary = true)
+    var title: String = title
 
-    var released: Long? = null
+    @Property(name = "releasedYear")
+    var releasedYear: Long = releasedYear
 
-    var tagline: String? = null
+    var tagline: String? = tagLine
 
     @Relationship(type = "ACTED_IN", direction = Relationship.INCOMING)
     var roles = ArrayList<Role>()
 
     //Provide a default constructor for OGM
-    constructor() {}
+    constructor() : this(title = "", releasedYear = 0, tagLine = null)
 
-    constructor(title: String, released: Long) {
-
-        this.title = title
-        this.released = released
-    }
+    constructor(title: String, releasedYear: Long) : this(title, releasedYear, null)
 
     fun addRole(role: Role) {
         this.roles.add(role)

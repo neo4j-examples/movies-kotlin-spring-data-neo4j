@@ -1,7 +1,7 @@
 package movies.spring.data.neo4j.api.endpoints.secured
 
 import movies.spring.data.neo4j.api.endpoints.aspects.Authenticated
-import movies.spring.data.neo4j.api.service.user.UserDTO
+import movies.spring.data.neo4j.api.service.user.dto.UserDTO
 import movies.spring.data.neo4j.api.service.user.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping

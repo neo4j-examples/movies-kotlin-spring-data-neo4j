@@ -1,6 +1,7 @@
 package movies.spring.data.neo4j.api.service.authorization
 
 import movies.spring.data.neo4j.ApplicationAssembly
+import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
 import movies.spring.data.neo4j.exception.UnauthorizedException
 import org.junit.Assert
 import org.junit.Test

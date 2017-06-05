@@ -1,4 +1,4 @@
-package movies.spring.data.neo4j.api.service.authorization
+package movies.spring.data.neo4j.api.service.authorization.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 

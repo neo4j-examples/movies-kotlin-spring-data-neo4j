@@ -6,7 +6,7 @@ import org.hamcrest.core.IsNull
 import org.junit.Test
 import org.springframework.transaction.annotation.Transactional
 
-class UserControllerTests : ControllerTest() {
+class UserIntegrationTest : ControllerTest() {
 
     @Test
     fun getMyProfile() {

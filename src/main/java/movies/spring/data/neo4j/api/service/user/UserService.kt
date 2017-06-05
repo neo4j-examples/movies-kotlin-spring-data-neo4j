@@ -1,5 +1,6 @@
 package movies.spring.data.neo4j.api.service.user
 
+import movies.spring.data.neo4j.api.service.user.dto.UserDTO
 import movies.spring.data.neo4j.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

@@ -1,6 +1,7 @@
 package movies.spring.data.neo4j.domain.model.persistent.entities
 
 import org.neo4j.ogm.annotation.GraphId
+import org.neo4j.ogm.annotation.Index
 import org.neo4j.ogm.annotation.NodeEntity
 import java.util.*
 
@@ -11,14 +12,17 @@ class User
     @GraphId
     var graphId: Long? = null
 
-    var uuid: String
+    @Index(unique=true, primary = true)
+    var uuid: String = UUID.randomUUID().toString()
 
+    @Index(unique=true, primary = false)
     var applicationToken: String
 
     var firstName: String
 
     var lastName: String
 
+    @Index(unique=true, primary = false)
     var email: String
 
     var password: String?
@@ -30,7 +34,6 @@ class User
     //Provide a default constructor for OGM
     constructor()
     {
-        this.uuid = UUID.randomUUID().toString()
         this.applicationToken = UUID.randomUUID().toString()
         this.firstName = ""
         this.lastName = ""
