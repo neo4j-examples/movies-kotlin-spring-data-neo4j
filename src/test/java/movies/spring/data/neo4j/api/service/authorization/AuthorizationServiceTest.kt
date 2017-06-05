@@ -1,6 +1,6 @@
 package movies.spring.data.neo4j.api.service.authorization
 
-import movies.spring.data.neo4j.ApplicationAssembly
+import movies.spring.data.neo4j.ApplicationConfig
 import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
 import movies.spring.data.neo4j.exception.UnauthorizedException
 import org.junit.Assert
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 
 @RunWith(SpringRunner::class)
-@SpringBootTest(classes = arrayOf(ApplicationAssembly::class),
+@SpringBootTest(classes = arrayOf(ApplicationConfig::class),
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AuthorizationServiceTest
 {

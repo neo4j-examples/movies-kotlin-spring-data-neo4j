@@ -10,20 +10,17 @@ import movies.spring.data.neo4j.repositories.MovieRepository
 import movies.spring.data.neo4j.repositories.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 /**
  * TODO: Add user recommendations based on weak ties, triadic closures and so forth.
  */
 @Service
-class MovieService constructor(movieRepository: MovieRepository, userRepository: UserRepository) {
-
-    val movieRepository = movieRepository
-    val userRepository = userRepository
+class MovieService constructor(private val movieRepository: MovieRepository,
+                               private val userRepository: UserRepository) {
 
     @Transactional(readOnly = true)
-    fun graph(limit: Int): GraphDTO {
-        return GraphDTO.mapFromEntity(movieRepository.graph(limit))
-    }
+    fun graph(limit: Int) = GraphDTO.mapFromEntity(movieRepository.graph(limit))
 
     @Transactional(readOnly = true)
     fun findByTitle(title: String): MovieDTO {
@@ -33,24 +30,25 @@ class MovieService constructor(movieRepository: MovieRepository, userRepository:
     }
 
     @Transactional(readOnly = true)
-    fun findByTitleContaining(term: String): Collection<MovieDTO> {
-        return MovieDTO.mapFromEntities(movieRepository.findByTitleContaining(term))
-    }
+    fun findByTitleContaining(term: String) =
+            MovieDTO.mapFromEntities(movieRepository.findByTitleContaining(term))
 
     @Transactional
     fun addLikeInteractionTo(uuid: String, forUserUserUuid: String) {
+
         val movie = movieRepository.findByUuid(uuid) ?:
                 throw NotFoundException("Movie with uuid $uuid does not exist.")
         val user = userRepository.findByUuid(forUserUserUuid) ?:
                 throw NotFoundException("User with uuid $uuid does not exist.")
 
         user.addLikeInteraction(movie)
+        user.lastActive = Date()
         userRepository.save(user)
     }
 
     @Transactional
     fun save(dto: MovieDTO): MovieDTO {
-        val movie = Movie(dto.title, dto.releasedYear, dto.tagLine)
+        val movie = Movie(title = dto.title, releasedYear = dto.releasedYear, tagLine = dto.tagLine)
         dto.roles.forEach {
             val person = Person(it.person.name)
             person.born = it.person.born

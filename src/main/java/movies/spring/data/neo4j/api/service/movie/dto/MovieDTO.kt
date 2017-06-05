@@ -11,18 +11,12 @@ class MovieDTO(val title: String,
 
     companion object : EntityDTOMapper<Movie, MovieDTO> {
 
-        override fun mapFromEntities(entities: Collection<Movie>): Collection<MovieDTO> {
-            return entities.map { fromEntity(it) }
-        }
-
-        override fun fromEntity(entity: Movie): MovieDTO {
-            return MovieDTO(title = entity.title,
-                    uuid = entity.uuid,
-                    releasedYear = entity.releasedYear,
-                    tagLine = entity.tagline,
-                    roles = RoleDTO.Companion.mapFromEntities(entity.roles))
-        }
-
+        override fun fromEntity(entity: Movie) = MovieDTO(
+                title = entity.title,
+                uuid = entity.uuid,
+                releasedYear = entity.releasedYear,
+                tagLine = entity.tagLine,
+                roles = RoleDTO.mapFromEntities(entity.roles))
     }
 
 }

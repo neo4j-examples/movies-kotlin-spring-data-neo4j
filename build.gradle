@@ -10,6 +10,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
     }
 }
 
@@ -17,14 +18,22 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: "kotlin-noarg"
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+noArg {
+    annotation("org.neo4j.ogm.annotation.NodeEntity")
+    annotation("org.neo4j.ogm.annotation.RelationshipEntity")
 }
 
 repositories {
@@ -35,17 +44,17 @@ repositories {
 
 
 dependencies {
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.1.2'
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j', version: '1.5.3.RELEASE') {
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j') {
         exclude(module: 'neo4j-ogm-http-driver')
     }
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.5.3.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compile group: 'org.springframework.data', name: 'spring-data-neo4j', version: '4.2.2.BUILD-SNAPSHOT'
     compile group: 'org.neo4j', name: 'neo4j-ogm-bolt-driver', version: '2.1.2'
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.8.5'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.3.RELEASE'
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.3.RELEASE') {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
     testCompile group: 'org.neo4j', name: 'neo4j-ogm-embedded-driver', version: '2.1.2'

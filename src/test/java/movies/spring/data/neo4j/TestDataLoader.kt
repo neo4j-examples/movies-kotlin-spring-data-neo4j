@@ -10,24 +10,18 @@ import org.springframework.transaction.annotation.Transactional
  * Create a test user for integration tests, until sign up feature implemented.
  */
 @Component
-class TestDataLoader @Autowired constructor(userRepo: UserRepository)
-{
-    private val userRepo: UserRepository = userRepo
+class TestDataLoader(private val userRepo: UserRepository) {
 
-    init
-    {
+    init {
         this.addTestUser()
     }
 
 
-
     @Transactional
-    fun addTestUser()
-    {
+    fun addTestUser() {
         val email = "jasper@appsquick.ly"
         val jasper = userRepo.findByEmail(email)
-        if (jasper == null)
-        {
+        if (jasper == null) {
             userRepo.save(User("Jasper", "Blues", email, "password"))
         }
     }

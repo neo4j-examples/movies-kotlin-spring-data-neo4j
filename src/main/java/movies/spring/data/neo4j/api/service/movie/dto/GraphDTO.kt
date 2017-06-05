@@ -1,10 +1,12 @@
 package movies.spring.data.neo4j.api.service.movie.dto
 
+import movies.spring.data.neo4j.domain.model.persistent.entities.Movie
+
 data class GraphDTO(val nodes: List<NodeDTO>,
                     val links: List<LinkDTO>) {
 
     companion object {
-        fun mapFromEntity(movies : Collection<movies.spring.data.neo4j.domain.model.persistent.entities.Movie>) : movies.spring.data.neo4j.api.service.movie.dto.GraphDTO
+        fun mapFromEntity(movies : Collection<Movie>) : GraphDTO
         {
             val nodes = java.util.ArrayList<NodeDTO>()
             val links = java.util.ArrayList<LinkDTO>()
@@ -16,7 +18,7 @@ data class GraphDTO(val nodes: List<NodeDTO>,
                 val target = i
                 i++
                 for (role in movie.roles) {
-                    val actor = NodeDTO(title = role.person.name, label = "actor")
+                    val actor = NodeDTO(title = role.person!!.name, label = "actor")
                     var source = nodes.indexOf(actor)
                     if (source == -1) {
                         nodes.add(actor)

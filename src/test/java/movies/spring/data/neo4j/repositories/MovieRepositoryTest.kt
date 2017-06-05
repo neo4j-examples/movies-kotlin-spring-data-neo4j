@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
 class MovieRepositoryTest {
 
     @Autowired lateinit var session: Session
@@ -31,7 +30,7 @@ class MovieRepositoryTest {
     fun setUp() {
         movieRepository.deleteAll()
 
-        val matrix = Movie("The Matrix", 1999)
+        val matrix = Movie(title = "The Matrix", releasedYear = 1999)
 
         movieRepository.save(matrix)
 
@@ -63,7 +62,7 @@ class MovieRepositoryTest {
     @Test
     fun findByUUid()
     {
-        val foobar = Movie("Foobar", 2017)
+        val foobar = Movie(title = "Foobar", releasedYear = 2017)
         movieRepository.save(foobar)
 
         assertNotNull(movieRepository.findByUuid(foobar.uuid))
@@ -94,6 +93,6 @@ class MovieRepositoryTest {
         assertEquals(1, movie.roles.size.toLong())
 
         assertEquals("The Matrix", movie.title)
-        assertEquals("Keanu Reeves", movie.roles.iterator().next().person.name)
+        assertEquals("Keanu Reeves", movie.roles.iterator().next().person!!.name)
     }
 }

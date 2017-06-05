@@ -8,14 +8,8 @@ data class RoleDTO(val person: PersonDTO,
 
     companion object : EntityDTOMapper<Role, RoleDTO> {
 
-        override fun mapFromEntities(entities: Collection<Role>): Collection<RoleDTO> {
-            return entities.map { RoleDTO.Companion.fromEntity(it) }
-        }
-
-        override fun fromEntity(entity: Role): RoleDTO {
-            val roleDTO = RoleDTO(person = PersonDTO.fromEntity(entity.person), roles = entity.roles)
-            return roleDTO
-        }
+        override fun fromEntity(entity: Role): RoleDTO =
+                RoleDTO(person = PersonDTO.fromEntity(entity.person), roles = entity.roles)
 
 
     }

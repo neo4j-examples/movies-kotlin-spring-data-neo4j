@@ -8,13 +8,8 @@ data class PersonDTO(val name: String,
 
     companion object : EntityDTOMapper<Person, PersonDTO> {
 
-        override fun mapFromEntities(entities: Collection<Person>): Collection<PersonDTO> {
-            return entities.map { PersonDTO.Companion.fromEntity(it) }
-        }
-
-        override fun fromEntity(entity: Person): PersonDTO {
-            return PersonDTO(name = entity.name, born = entity.born)
-        }
+        override fun fromEntity(entity: Person) =
+                PersonDTO(name = entity.name, born = entity.born)
     }
 }
 

@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class AuthorizationServicePasswordImpl @Autowired constructor(
-        userRepo: UserRepository) : AuthorizationService
+class AuthorizationServicePasswordImpl (
+        private val userRepository: UserRepository) : AuthorizationService
 {
-    private val userRepository: UserRepository = userRepo
 
     @Transactional
     override fun authorize(request: CredentialsDTO): AuthorizationDTO

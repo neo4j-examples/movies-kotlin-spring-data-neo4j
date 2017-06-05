@@ -2,10 +2,11 @@ package movies.spring.data.neo4j.api.endpoints
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.jayway.restassured.RestAssured
-import movies.spring.data.neo4j.ApplicationAssembly
+import movies.spring.data.neo4j.ApplicationConfig
 import movies.spring.data.neo4j.api.service.authorization.dto.AuthorizationDTO
 import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
 import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @RunWith(SpringRunner::class)
-@SpringBootTest(classes = arrayOf(ApplicationAssembly::class), webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = arrayOf(ApplicationConfig::class), webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 abstract class ControllerTest {
 
     @Autowired lateinit var mapper: ObjectMapper
@@ -40,11 +41,11 @@ abstract class ControllerTest {
                 .post("/authorization").peek().asString()
 
         if (auth.contains("\"error\" : {")) {
-            Assert.fail("Login failed.")
+            fail("Login failed.")
         }
 
         val authorization = mapper.readValue(auth, AuthorizationDTO::class.java)
-        Assert.assertNotNull(authorization.accessToken)
+        assertNotNull(authorization.accessToken)
         return authorization
     }
 

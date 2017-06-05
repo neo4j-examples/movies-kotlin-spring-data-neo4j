@@ -8,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Component
-class UserService @Autowired constructor(userRepo: UserRepository)
+class UserService constructor(private val userRepository: UserRepository)
 {
-    private val userRepository: UserRepository = userRepo
-
 
     @Transactional
     fun getMyUser(profileId: String): UserDTO
@@ -20,6 +18,6 @@ class UserService @Autowired constructor(userRepo: UserRepository)
         user.lastActive = Date()
         userRepository.save(user)
 
-        return UserDTO.fromUser(user)
+        return UserDTO.fromEntity(user)
     }
 }
