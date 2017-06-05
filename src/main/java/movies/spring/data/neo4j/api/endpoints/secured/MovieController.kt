@@ -1,5 +1,6 @@
 package movies.spring.data.neo4j.api.endpoints.secured
 
+import movies.spring.data.neo4j.api.endpoints.aspects.Authenticated
 import movies.spring.data.neo4j.api.service.movie.dto.GraphDTO
 import movies.spring.data.neo4j.api.service.movie.dto.MovieDTO
 import movies.spring.data.neo4j.api.service.movie.MovieService
@@ -26,8 +27,13 @@ class MovieController @Autowired constructor(val movieService: MovieService) {
     }
 
     @RequestMapping("/", method = arrayOf(RequestMethod.PUT))
-    fun save(@RequestBody dto: MovieDTO) {
-        movieService.save(dto)
+    fun save(@RequestBody dto: MovieDTO) : MovieDTO {
+        return movieService.save(dto)
+    }
+
+    @RequestMapping("/{uuid}/like", method = arrayOf(RequestMethod.PUT))
+    fun addLikeInteraction(@PathVariable("uuid") uuid: String, @Authenticated userUuid: String) {
+        movieService.addLikeInteractionTo(uuid, forUserUserUuid = userUuid)
     }
 
 }

@@ -4,6 +4,7 @@ import movies.spring.data.neo4j.api.service.EntityDTOMapper
 import movies.spring.data.neo4j.domain.model.persistent.entities.Movie
 
 class MovieDTO(val title: String,
+               val uuid: String? = null,
                val releasedYear: Long,
                val tagLine: String?,
                val roles: Collection<RoleDTO>) {
@@ -14,11 +15,12 @@ class MovieDTO(val title: String,
             return entities.map { fromEntity(it) }
         }
 
-        override fun fromEntity(movie: Movie): MovieDTO {
-            return MovieDTO(title = movie.title,
-                    releasedYear = movie.releasedYear,
-                    tagLine = movie.tagline,
-                    roles = RoleDTO.Companion.mapFromEntities(movie.roles))
+        override fun fromEntity(entity: Movie): MovieDTO {
+            return MovieDTO(title = entity.title,
+                    uuid = entity.uuid,
+                    releasedYear = entity.releasedYear,
+                    tagLine = entity.tagline,
+                    roles = RoleDTO.Companion.mapFromEntities(entity.roles))
         }
 
     }

@@ -57,7 +57,16 @@ class MovieRepositoryTest {
         val title = "The Matrix"
         val result = movieRepository.findByTitle(title)
         assertNotNull(result)
-        assertEquals(1999L, result.releasedYear)
+        assertEquals(1999L, result!!.releasedYear)
+    }
+
+    @Test
+    fun findByUUid()
+    {
+        val foobar = Movie("Foobar", 2017)
+        movieRepository.save(foobar)
+
+        assertNotNull(movieRepository.findByUuid(foobar.uuid))
     }
 
     /**

@@ -3,6 +3,7 @@ package movies.spring.data.neo4j.domain.model.persistent.entities
 import org.neo4j.ogm.annotation.GraphId
 import org.neo4j.ogm.annotation.Index
 import org.neo4j.ogm.annotation.NodeEntity
+import org.neo4j.ogm.annotation.Relationship
 import java.util.*
 
 @NodeEntity
@@ -31,6 +32,9 @@ class User
 
     var lastActive: Date
 
+    @Relationship(type = "LIKES", direction = Relationship.OUTGOING)
+    var likes: MutableSet<Movie> = HashSet()
+
     //Provide a default constructor for OGM
     constructor()
     {
@@ -51,6 +55,10 @@ class User
         this.email = email
         this.password = password
         this.joined = Date()
+    }
+
+    fun addLikeInteraction(movie: Movie) {
+        likes.add(movie)
     }
 
 

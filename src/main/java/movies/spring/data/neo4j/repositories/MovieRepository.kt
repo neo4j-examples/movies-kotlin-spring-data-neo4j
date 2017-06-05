@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MovieRepository : PagingAndSortingRepository<Movie, Long> {
 
-    fun findByTitle(@Param("title") title: String): Movie
+    fun findByTitle(@Param("title") title: String): Movie?
+
+    fun findByUuid(uuid: String): Movie?
 
     fun findByTitleContaining(title: String): Collection<Movie>
 

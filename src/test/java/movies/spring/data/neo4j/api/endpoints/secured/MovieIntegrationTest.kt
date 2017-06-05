@@ -6,21 +6,12 @@ import movies.spring.data.neo4j.api.service.movie.dto.GraphDTO
 import movies.spring.data.neo4j.api.service.movie.dto.MovieDTO
 import movies.spring.data.neo4j.api.service.movie.dto.PersonDTO
 import movies.spring.data.neo4j.api.service.movie.dto.RoleDTO
-import movies.spring.data.neo4j.repositories.MovieRepository
-import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
-import org.springframework.beans.factory.annotation.Autowired
 
 
 class MovieIntegrationTest : ControllerTest() {
-
-    @Autowired lateinit var repo : MovieRepository
-
-    @After
-    fun tearDown() {
-        repo.deleteAll()
-    }
 
     @Test
     fun shouldSaveMovies() {
@@ -98,6 +89,49 @@ class MovieIntegrationTest : ControllerTest() {
                 .get("movies/by/title/containing")
                 .peek().then()
                 .assertThat().statusCode(200)
+    }
+
+    @Test
+    fun shouldAllowUserLiking() {
+
+        val accessToken: String = login("jasper@appsquick.ly", "password").accessToken
+
+        val dto = MovieDTO(title = "The Devil's Advocate",
+                releasedYear = 1997,
+                tagLine = "Evil has its winning ways",
+                roles = listOf(
+                        RoleDTO(person = PersonDTO("Keanu Reeves", 1964),
+                                roles = listOf("Kevin Lomax")),
+                        RoleDTO(person = PersonDTO("Charlize Theron", 1975),
+                                roles = listOf("Mary Ann Lomax")),
+                        RoleDTO(person = PersonDTO("Al Pacino", 1940),
+                                roles = listOf("John Milton"))
+                ))
+
+        val json = RestAssured.given()
+                .header("Access-Token", accessToken)
+                .header("API-Key", "e8f3fdcc-8825-11e5-af63-feff819cdc9f")
+                .header("Content-Type", "application/json")
+                .body(mapper.writeValueAsString(dto))
+                .put("/movies/")
+                .peek().then()
+                .assertThat().statusCode(200)
+                .extract().response().asString()
+
+        val uuid = mapper.readValue(json, MovieDTO::class.java).uuid!!
+
+        RestAssured.given()
+                .header("Access-Token", accessToken)
+                .header("API-Key", "e8f3fdcc-8825-11e5-af63-feff819cdc9f")
+                .header("Content-Type", "application/json")
+                .body(mapper.writeValueAsString(dto))
+                .put("/movies/$uuid/like")
+                .peek().then()
+                .assertThat().statusCode(200)
+                .extract().response().asString()
+
+
+
     }
 
 }

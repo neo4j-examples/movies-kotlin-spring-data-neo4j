@@ -12,8 +12,8 @@ data class RoleDTO(val person: PersonDTO,
             return entities.map { RoleDTO.Companion.fromEntity(it) }
         }
 
-        override fun fromEntity(movie: Role): RoleDTO {
-            val roleDTO = RoleDTO(person = PersonDTO.fromEntity(movie.person), roles = movie.roles)
+        override fun fromEntity(entity: Role): RoleDTO {
+            val roleDTO = RoleDTO(person = PersonDTO.fromEntity(entity.person), roles = entity.roles)
             return roleDTO
         }
 

@@ -15,12 +15,12 @@ class AuthorizationServicePasswordImpl @Autowired constructor(
     private val userRepository: UserRepository = userRepo
 
     @Transactional
-    override fun authorize(credentials: CredentialsDTO): AuthorizationDTO
+    override fun authorize(request: CredentialsDTO): AuthorizationDTO
     {
-        val user = userRepository.findByEmail(credentials.email)
-        if (user == null || user.password != credentials.password)
+        val user = userRepository.findByEmail(request.email)
+        if (user == null || user.password != request.password)
         {
-            throw UnauthorizedException("The provided credentials were not valid.")
+            throw UnauthorizedException("The provided request were not valid.")
         }
         return AuthorizationDTO.fromUser(user)
     }

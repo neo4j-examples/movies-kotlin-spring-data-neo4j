@@ -12,8 +12,8 @@ data class PersonDTO(val name: String,
             return entities.map { PersonDTO.Companion.fromEntity(it) }
         }
 
-        override fun fromEntity(person: Person): PersonDTO {
-            return PersonDTO(name = person.name, born = person.born)
+        override fun fromEntity(entity: Person): PersonDTO {
+            return PersonDTO(name = entity.name, born = entity.born)
         }
     }
 }
