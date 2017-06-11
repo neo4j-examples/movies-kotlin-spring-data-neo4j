@@ -6,7 +6,6 @@ import org.neo4j.ogm.annotation.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @NodeEntity
 class Movie(@GraphId var id: Long? = null,
             @Index(unique = true, primary = false) var uuid: String = UUID.randomUUID().toString(),
