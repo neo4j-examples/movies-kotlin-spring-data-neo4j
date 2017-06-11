@@ -2,7 +2,6 @@ package movies.spring.data.neo4j
 
 import movies.spring.data.neo4j.domain.model.persistent.entities.User
 import movies.spring.data.neo4j.repositories.UserRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
