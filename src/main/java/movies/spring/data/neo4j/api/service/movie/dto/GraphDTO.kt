@@ -18,7 +18,7 @@ data class GraphDTO(val nodes: List<NodeDTO>,
                 val target = i
                 i++
                 for (role in movie.roles) {
-                    val actor = NodeDTO(title = role.person!!.name, label = "actor")
+                    val actor = NodeDTO(title = role.person.name, label = "actor")
                     var source = nodes.indexOf(actor)
                     if (source == -1) {
                         nodes.add(actor)

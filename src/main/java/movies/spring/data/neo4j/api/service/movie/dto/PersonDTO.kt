@@ -4,7 +4,7 @@ import movies.spring.data.neo4j.api.service.EntityDTOMapper
 import movies.spring.data.neo4j.domain.model.persistent.entities.Person
 
 data class PersonDTO(val name: String,
-                     val born: Long?) {
+                     val born: Long) {
 
     companion object : EntityDTOMapper<Person, PersonDTO> {
 

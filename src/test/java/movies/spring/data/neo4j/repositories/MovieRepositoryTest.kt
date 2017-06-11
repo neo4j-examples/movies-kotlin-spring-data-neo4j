@@ -34,11 +34,11 @@ class MovieRepositoryTest {
 
         movieRepository.save(matrix)
 
-        val keanu = Person("Keanu Reeves")
+        val keanu = Person(name = "Keanu Reeves", born = 1964)
 
         personRepository.save(keanu)
 
-        val neo = Role(matrix, keanu)
+        val neo = Role(movie = matrix, person = keanu)
         neo.addRoleName("Neo")
 
         matrix.addRole(neo)
@@ -93,6 +93,6 @@ class MovieRepositoryTest {
         assertEquals(1, movie.roles.size.toLong())
 
         assertEquals("The Matrix", movie.title)
-        assertEquals("Keanu Reeves", movie.roles.iterator().next().person!!.name)
+        assertEquals("Keanu Reeves", movie.roles.iterator().next().person.name)
     }
 }

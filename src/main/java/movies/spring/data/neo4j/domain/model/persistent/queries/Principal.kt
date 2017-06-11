@@ -6,17 +6,9 @@ import org.springframework.data.neo4j.annotation.QueryResult
 
 
 @QueryResult
-class Principal constructor(applicationToken: String,
-                                 profileId: String)
+class Principal (var applicationToken: String,
+                 var profileId: String)
 {
-
-    var applicationToken: String = applicationToken
-    var profileId: String = profileId
-
-
-    //Provide a default constructor for OGM
-    constructor() : this(applicationToken = "", profileId = "")
-
 
     override fun toString(): String
     {

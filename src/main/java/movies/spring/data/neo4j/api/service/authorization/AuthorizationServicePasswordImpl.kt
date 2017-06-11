@@ -21,6 +21,6 @@ class AuthorizationServicePasswordImpl (
         {
             throw UnauthorizedException("The provided request were not valid.")
         }
-        return AuthorizationDTO.fromUser(user)
+        return AuthorizationDTO.fromEntity(user)
     }
 }

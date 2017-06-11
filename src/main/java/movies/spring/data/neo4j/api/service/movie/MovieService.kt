@@ -50,10 +50,8 @@ class MovieService constructor(private val movieRepository: MovieRepository,
     fun save(dto: MovieDTO): MovieDTO {
         val movie = Movie(title = dto.title, releasedYear = dto.releasedYear, tagLine = dto.tagLine)
         dto.roles.forEach {
-            val person = Person(it.person.name)
-            person.born = it.person.born
-
-            val role = Role(movie, person)
+            val person = Person(name = it.person.name, born = it.person.born)
+            val role = Role(movie = movie, person = person)
             it.roles.forEach { roleName ->
                 role.addRoleName(roleName)
             }

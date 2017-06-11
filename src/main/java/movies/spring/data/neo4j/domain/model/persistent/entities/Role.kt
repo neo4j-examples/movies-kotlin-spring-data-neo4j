@@ -8,22 +8,10 @@ import org.neo4j.ogm.annotation.*
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @RelationshipEntity(type = "ACTED_IN")
-class Role constructor(movie: Movie, actor: Person) {
-
-    @GraphId
-    var id: Long? = null
-
-    @StartNode
-    var person: Person = actor
-
-    @EndNode
-    var movie: Movie = movie
-
-//    @Property
-    var roles = ArrayList<String>()
-
-    //Provide a default constructor for OGM
-//    constructor() : this(Movie(), Person())
+class Role(@GraphId var id: Long? = null,
+           @StartNode var person: Person,
+           @EndNode var movie: Movie,
+           var roles: ArrayList<String> = ArrayList()) {
 
     fun addRoleName(name: String) {
         this.roles.add(name)
