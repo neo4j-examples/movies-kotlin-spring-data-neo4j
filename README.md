@@ -1,10 +1,10 @@
 # Kotlin SDN Movies Example Application
 
-This is an example backend app powered by Spring Data Neo4j, Spring Boot and the JVM language Kotlin. The domain is the [SDN movies dataset](https://neo4j.com/developer/example-project/) and movie buffs as end users. 
+This is an example backend app powered by Spring Data Neo4j, Spring Boot and the JVM language Kotlin. The domain is the [SDN movies dataset](https://neo4j.com/developer/example-project/) along with movie buffs as end users. 
 
 The application includes features as would be typical of a social mobile application or web-app: 
 
-* End users can interact (like, dislike) movies, roles or directors, make friends with other movie buffs, and based on these interactions, be recommended other movies to see. 
+* End users can interact (like, dislike) movies, roles or directors, make friends with other movie buffs, and based on these interactions, be recommended other movies that they're likely to enjoy. 
 * Token-based authentication provided by Spring Security. 
 
 Spring Data Neo4j was the first Spring Data project, started by the CEOs Rod Johnson and Emil Eifrem.
