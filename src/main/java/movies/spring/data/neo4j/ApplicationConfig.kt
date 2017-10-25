@@ -1,6 +1,7 @@
 package movies.spring.data.neo4j
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.PropertyNamingStrategy
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.boot.SpringApplication
@@ -14,7 +15,13 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 @EntityScan("movies.spring.data.neo4j.domain.model.persistent")
 class ApplicationConfig {
 
-    fun main(args: Array<String>) = SpringApplication.run(ApplicationConfig::class.java, *args)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(ApplicationConfig::class.java, *args)
+        }
+    }
+
 
     @Bean
     fun kotlinPropertyConfigurer(): PropertySourcesPlaceholderConfigurer {

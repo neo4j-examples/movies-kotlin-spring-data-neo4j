@@ -8,9 +8,9 @@ import java.util.*
 import kotlin.collections.HashSet
 
 @NodeEntity
-class User(@GraphId var graphId: Long? = null,
+open class User(@GraphId var graphId: Long? = null,
            @Index(unique = true, primary = true) var uuid: String = UUID.randomUUID().toString(),
-           @Index(unique = true, primary = false) var applicationToken: String? = null,
+           @Index(unique = true, primary = false) var applicationToken: String? = UUID.randomUUID().toString(),
            var firstName: String,
            var lastName: String,
            @Index(unique = true, primary = false) var email: String,

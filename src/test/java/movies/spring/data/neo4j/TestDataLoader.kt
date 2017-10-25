@@ -21,7 +21,8 @@ class TestDataLoader(private val userRepo: UserRepository) {
         val email = "jasper@appsquick.ly"
         val jasper = userRepo.findByEmail(email)
         if (jasper == null) {
-            userRepo.save(User(firstName = "Jasper",
+            userRepo.save(User(
+                    firstName = "Jasper",
                     lastName = "Blues",
                     email = email,
                     password = "password"))
