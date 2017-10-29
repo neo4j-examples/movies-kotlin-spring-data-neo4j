@@ -1,15 +1,12 @@
 package movies.spring.data.neo4j.domain.model.persistent.entities
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo
-import com.fasterxml.jackson.annotation.ObjectIdGenerators
-import org.neo4j.ogm.annotation.*
-import java.util.*
-import kotlin.collections.ArrayList
+import org.neo4j.ogm.annotation.Id
+import org.neo4j.ogm.annotation.NodeEntity
+import org.neo4j.ogm.annotation.Property
+import org.neo4j.ogm.annotation.Relationship
 
 @NodeEntity
-class Movie(@GraphId var id: Long? = null,
-            @Index(unique = true, primary = false) var uuid: String = UUID.randomUUID().toString(),
-            @Index(unique = true, primary = true) var title: String,
+class Movie(@Id var title: String,
             @Property(name = "releasedYear") var releasedYear: Long,
             @Property(name = "tagline") var tagLine: String? = null,
             @Relationship(type = "ACTED_IN", direction = Relationship.INCOMING)

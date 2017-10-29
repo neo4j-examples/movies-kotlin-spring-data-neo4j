@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {

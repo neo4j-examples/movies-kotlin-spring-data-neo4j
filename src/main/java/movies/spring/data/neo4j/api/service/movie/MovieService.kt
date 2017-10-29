@@ -34,12 +34,12 @@ class MovieService constructor(private val movieRepository: MovieRepository,
             MovieDTO.mapFromEntities(movieRepository.findByTitleContaining(term))
 
     @Transactional
-    fun addLikeInteractionTo(uuid: String, forUserUserUuid: String) {
+    fun addLikeInteractionTo(title: String, forUserUserUuid: String) {
 
-        val movie = movieRepository.findByUuid(uuid) ?:
-                throw NotFoundException("Movie with uuid $uuid does not exist.")
+        val movie = movieRepository.findByTitle(title) ?:
+                throw NotFoundException("Movie with uuid $title does not exist.")
         val user = userRepository.findByUuid(forUserUserUuid) ?:
-                throw NotFoundException("User with uuid $uuid does not exist.")
+                throw NotFoundException("User with uuid $title does not exist.")
 
         user.addLikeInteraction(movie)
         user.lastActive = Date()

@@ -59,15 +59,6 @@ class MovieRepositoryTest {
         assertEquals(1999L, result!!.releasedYear)
     }
 
-    @Test
-    fun findByUUid()
-    {
-        val foobar = Movie(title = "Foobar", releasedYear = 2017)
-        movieRepository.save(foobar)
-
-        assertNotNull(movieRepository.findByUuid(foobar.uuid))
-    }
-
     /**
      * Test of findByTitleContaining method, of class MovieRepository.
      */

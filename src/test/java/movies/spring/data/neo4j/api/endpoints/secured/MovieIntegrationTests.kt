@@ -122,14 +122,14 @@ class MovieIntegrationTests : ControllerTest() {
                 .assertThat().statusCode(200)
                 .extract().response().asString()
 
-        val uuid = mapper.readValue(json, MovieDTO::class.java).uuid!!
+        val title = mapper.readValue(json, MovieDTO::class.java).title
 
         RestAssured.given()
                 .header("Access-Token", accessToken)
                 .header("API-Key", apiKey)
                 .header("Content-Type", "application/json")
                 .body(mapper.writeValueAsString(dto))
-                .put("/movies/$uuid/like")
+                .put("/movies/$title/like")
                 .peek().then()
                 .assertThat().statusCode(200)
                 .extract().response().asString()

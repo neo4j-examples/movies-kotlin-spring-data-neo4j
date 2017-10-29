@@ -2,13 +2,13 @@ package movies.spring.data.neo4j
 
 import movies.spring.data.neo4j.domain.model.persistent.entities.User
 import movies.spring.data.neo4j.repositories.UserRepository
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 /**
  * Create a test user for integration tests, until sign up feature implemented.
  */
-@Component
+@Service
 class TestDataLoader(private val userRepo: UserRepository) {
 
     init {

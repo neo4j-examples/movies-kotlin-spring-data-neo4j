@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-interface PersonRepository : PagingAndSortingRepository<Person, Long>
+interface PersonRepository : PagingAndSortingRepository<Person, String>

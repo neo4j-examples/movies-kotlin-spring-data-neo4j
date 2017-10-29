@@ -23,9 +23,9 @@ class MovieController constructor(private val movieService: MovieService) {
     @PutMapping("/")
     fun save(@RequestBody dto: MovieDTO) = movieService.save(dto)
 
-    @PutMapping("/{uuid}/like")
-    fun addLikeInteraction(@PathVariable("uuid") uuid: String, @Authenticated userUuid: String) =
-            movieService.addLikeInteractionTo(uuid, forUserUserUuid = userUuid)
+    @PutMapping("/{title}/like")
+    fun addLikeInteraction(@PathVariable("title") title: String, @Authenticated userUuid: String) =
+            movieService.addLikeInteractionTo(title, forUserUserUuid = userUuid)
 
 
 }

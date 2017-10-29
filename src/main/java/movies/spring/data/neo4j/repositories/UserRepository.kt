@@ -5,11 +5,11 @@ import movies.spring.data.neo4j.domain.model.persistent.entities.User
 import movies.spring.data.neo4j.domain.model.persistent.queries.Principal
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.neo4j.annotation.Query
-import org.springframework.data.neo4j.repository.GraphRepository
+import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository : GraphRepository<User>
+interface UserRepository : CrudRepository<User, Long>
 {
 
     fun findByUuid(id: String): User?

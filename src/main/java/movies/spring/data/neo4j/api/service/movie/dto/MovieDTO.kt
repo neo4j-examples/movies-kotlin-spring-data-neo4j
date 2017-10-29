@@ -13,7 +13,6 @@ class MovieDTO(val title: String,
 
         override fun fromEntity(entity: Movie) = MovieDTO(
                 title = entity.title,
-                uuid = entity.uuid,
                 releasedYear = entity.releasedYear,
                 tagLine = entity.tagLine,
                 roles = RoleDTO.mapFromEntities(entity.roles))

@@ -5,13 +5,13 @@ import com.jayway.restassured.RestAssured
 import movies.spring.data.neo4j.ApplicationConfig
 import movies.spring.data.neo4j.api.service.authorization.dto.AuthorizationDTO
 import movies.spring.data.neo4j.api.service.authorization.dto.CredentialsDTO
-import org.junit.Assert
-import org.junit.Assert.*
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.embedded.LocalServerPort
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.transaction.annotation.Transactional
 
@@ -22,7 +22,8 @@ abstract class ControllerTest {
 
     @Autowired lateinit var mapper: ObjectMapper
 
-    @LocalServerPort var port: Int? = null
+    @LocalServerPort
+    var port: Int? = null
 
     @Before
     fun setup() {
