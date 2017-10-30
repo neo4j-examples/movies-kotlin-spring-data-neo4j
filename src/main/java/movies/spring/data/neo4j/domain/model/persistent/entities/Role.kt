@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.*
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 @RelationshipEntity(type = "ACTED_IN")
-class Role(@GraphId var id: Long? = null,
+class Role(@Id @GeneratedValue var id: Long? = null,
            @StartNode var person: Person,
            @EndNode var movie: Movie,
            var roles: ArrayList<String> = ArrayList()) {
