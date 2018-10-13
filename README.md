@@ -26,7 +26,13 @@ This project uses Spring Data Neo4j 4 which is a complete rewrite from earlier v
 * run `:play movies` command, and click and run the Cypher statement to insert the dataset
 * clone this project from GitHub
 . update `src/main/resources/application.properties` with the username and password you set above.
+* Open localhost:7474 and create a test user: 
+
+```CREATE (u:User {applicationToken:"ba2ab43b-01e6-4425-8089-f0ade3db28c3", email:"you@you.com", firstName:"YourFirstName", joined:"2018-10-13T01:28:22.771Z", lastActive:"2018-10-13T01:28:22.771Z", lastName:"YourLastName", password:"password", uuid:"b4342c76-f693-4205-8ffd-22d56b92cbbb" })```
+
 * run the project with `gradle bootRun`.
+
+
 
 ## Code Walkthrough
 
