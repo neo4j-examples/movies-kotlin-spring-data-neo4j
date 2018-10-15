@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        kotlinVersion = '1.1.51'
-        springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+        kotlinVersion = '1.2.61'
+        springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -50,7 +50,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
     compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
     compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j', version: "${springBootVersion}") {
         exclude(module: 'neo4j-ogm-http-driver')
     }
