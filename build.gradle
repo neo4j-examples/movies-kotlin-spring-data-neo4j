@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.61'
+        kotlinVersion = '1.2.71'
         springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
@@ -21,17 +21,23 @@ apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: "kotlin-noarg"
+apply plugin: 'io.spring.dependency-management'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-
-
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
 }
+
 
 noArg {
     annotation("org.neo4j.ogm.annotation.NodeEntity")
@@ -48,26 +54,26 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
-    compile "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j', version: "${springBootVersion}") {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-neo4j', version: "${springBootVersion}") {
         exclude(module: 'neo4j-ogm-http-driver')
     }
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${springBootVersion}"
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
-    compile group: 'org.springframework.data', name: 'spring-data-neo4j', version:'5.0.1.RELEASE'
-    compile("org.neo4j:neo4j-ogm-core:3.0.1")
-    compile("org.neo4j:neo4j-ogm-api:3.0.1")
-    compile group: 'org.neo4j', name: 'neo4j-ogm-bolt-driver', version: '3.0.1'
-    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.8.5'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:"${springBootVersion}") {
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
+    implementation group: 'org.springframework.data', name: 'spring-data-neo4j', version:'5.0.1.RELEASE'
+    implementation("org.neo4j:neo4j-ogm-core:3.0.1")
+    implementation("org.neo4j:neo4j-ogm-api:3.0.1")
+    implementation group: 'org.neo4j', name: 'neo4j-ogm-bolt-driver', version: '3.0.1'
+    implementation group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.7'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springBootVersion}"
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+    testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:"${springBootVersion}") {
         exclude(module: 'commons-logging')
     }
-    testCompile group: 'org.neo4j', name: 'neo4j-ogm-embedded-driver', version: '3.0.1'
-    testCompile group: 'org.neo4j', name: 'neo4j', version: '3.1.2'
-    testCompile group: 'com.jayway.restassured', name: 'rest-assured', version: '2.4.0'
+    testImplementation group: 'org.neo4j', name: 'neo4j-ogm-embedded-driver', version: '3.0.1'
+    testImplementation group: 'org.neo4j', name: 'neo4j', version: '3.1.2'
+    testImplementation group: 'com.jayway.restassured', name: 'rest-assured', version: '2.4.0'
 }
 
